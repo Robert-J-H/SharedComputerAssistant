@@ -205,7 +205,6 @@ class AddonSettingsDialog(SettingsDialog):
 		self.activateList.SetFocus()
 
 	def onOk(self,evt):
-		super(AddonSettingsDialog, self).onOk(evt)
 		config.conf["sharedComputer"]["numLockActivationChoice"] = self.activateList.Selection
 		# write only to the normal configuration
 		newSettings = {"sharedComputer": {
@@ -213,6 +212,7 @@ class AddonSettingsDialog(SettingsDialog):
 			"volumeLevel": self.volumeLevel.Value}}
 		config.conf._profileCache[None].update(newSettings)
 		config.conf.profiles[0].update(newSettings)
+		super(AddonSettingsDialog, self).onOk(evt)
 
 # Audio Stuff
 def getVolumeObject():
