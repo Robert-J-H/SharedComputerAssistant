@@ -112,10 +112,10 @@ class AddonSettingsDialog(SettingsDialog):
 # Translators: Title of a dialog.
 	title = _("Shared Computer Settings (F1 for Context Help)")
 	# Translators: title of the browsable help message
-	helpTitle = _(u"Help")
+	helpTitle = _("Help")
 	# Translators: advice on how to close the browsable help message
-	hint = _(u"Press escape to close this message.")
-	hint = u"<p>{}</p>".format(hint)
+	hint = _("Press escape to close this message.")
+	hint = "<p>{}</p>".format(hint)
 	lastFocus = None
 	helpDict = {}
 	with open(helpPath,'r') as helpFile:
