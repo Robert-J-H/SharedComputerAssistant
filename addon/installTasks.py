@@ -26,3 +26,4 @@ def onInstall():
 		except KeyError:
 			pass
 	conf.spec["sharedComputer"] = confspec
+	conf.save()
