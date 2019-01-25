@@ -31,7 +31,10 @@ config.conf.spec["sharedComputer"] = confspec
 speakers = None
 
 def _getBaseValue(key):
-	val1 = config.conf.profiles[0]["sharedComputer"].get(key)
+	try:
+		val1 = config.conf.profiles[0]["sharedComputer"].get(key)
+	except:
+		val1 = None
 	val2 = config.conf["sharedComputer"].get(key)
 	return int(val1) if val1 is not None else int(val2)
 
