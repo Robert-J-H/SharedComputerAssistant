@@ -160,11 +160,11 @@ class AddonSettingsDialog(SettingsDialog):
 		self.volumeList.Bind(wx.EVT_CHOICE, self.onChoice) 
 		self.volumeLevel.Bind(wx.EVT_CHAR_HOOK, self.onKey)
 		for number, child in enumerate([self.activateList, self.volumeList, self.volumeLevel], 1):
-			self.helpDict[child.GetId()] = u'\n'.join((self.sections[0], self.sections[number], self.hint, self.sections[4]))
+			self.helpDict[child.GetId()] = '\n'.join((self.sections[0], self.sections[number], self.hint, self.sections[4]))
 			child.Bind(wx.EVT_HELP, self.onHelp)
 
 	def onDialogActivate(self, evt):
-		"Ensures that the current control will be the same after switching to another window and back"
+		""" Ensures that the current control will be the same after switching to another window and back """
 		# store focus when the user switches to another window
 		if not evt.GetActive():
 			self.lastFocus = self.FindFocus()
