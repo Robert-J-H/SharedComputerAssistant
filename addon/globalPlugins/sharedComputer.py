@@ -31,7 +31,10 @@ config.conf.spec["sharedComputer"] = confspec
 speakers = None
 
 def _getBaseValue(key):
-	val1 = config.conf.profiles[0]["sharedComputer"].get(key)
+	try:
+		val1 = config.conf.profiles[0]["sharedComputer"].get(key)
+	except:
+		val1 = None
 	val2 = config.conf["sharedComputer"].get(key)
 	return int(val1) if val1 is not None else int(val2)
 
@@ -109,10 +112,10 @@ class AddonSettingsDialog(SettingsDialog):
 # Translators: Title of a dialog.
 	title = _("Shared Computer Settings (F1 for Context Help)")
 	# Translators: title of the browsable help message
-	helpTitle = _(u"Help")
+	helpTitle = _("Help")
 	# Translators: advice on how to close the browsable help message
-	hint = _(u"Press escape to close this message.")
-	hint = u"<p>{}</p>".format(hint)
+	hint = _("Press escape to close this message.")
+	hint = "<p>{}</p>".format(hint)
 	lastFocus = None
 	helpDict = {}
 	with open(helpPath,'r') as helpFile:
@@ -157,11 +160,11 @@ class AddonSettingsDialog(SettingsDialog):
 		self.volumeList.Bind(wx.EVT_CHOICE, self.onChoice) 
 		self.volumeLevel.Bind(wx.EVT_CHAR_HOOK, self.onKey)
 		for number, child in enumerate([self.activateList, self.volumeList, self.volumeLevel], 1):
-			self.helpDict[child.GetId()] = u'\n'.join((self.sections[0], self.sections[number], self.hint, self.sections[4]))
+			self.helpDict[child.GetId()] = '\n'.join((self.sections[0], self.sections[number], self.hint, self.sections[4]))
 			child.Bind(wx.EVT_HELP, self.onHelp)
 
 	def onDialogActivate(self, evt):
-		"Ensures that the current control will be the same after switching to another window and back"
+		""" Ensures that the current control will be the same after switching to another window and back """
 		# store focus when the user switches to another window
 		if not evt.GetActive():
 			self.lastFocus = self.FindFocus()
@@ -202,7 +205,6 @@ class AddonSettingsDialog(SettingsDialog):
 		self.activateList.SetFocus()
 
 	def onOk(self,evt):
-		super(AddonSettingsDialog, self).onOk(evt)
 		config.conf["sharedComputer"]["numLockActivationChoice"] = self.activateList.Selection
 		# write only to the normal configuration
 		newSettings = {"sharedComputer": {
@@ -210,6 +212,7 @@ class AddonSettingsDialog(SettingsDialog):
 			"volumeLevel": self.volumeLevel.Value}}
 		config.conf._profileCache[None].update(newSettings)
 		config.conf.profiles[0].update(newSettings)
+		super(AddonSettingsDialog, self).onOk(evt)
 
 # Audio Stuff
 def getVolumeObject():
